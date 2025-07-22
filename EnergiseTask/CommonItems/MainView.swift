@@ -22,7 +22,11 @@ class MainView: UIView {
 private extension MainView {
     func setupUI() {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = K.Colors.mainBackgroundGradientColors
+        gradientLayer.colors = [
+            UIColor(red: 0.1, green: 0.1, blue: 0.15, alpha: 1).cgColor, // dark navy
+            UIColor(red: 0.2, green: 0.2, blue: 0.3, alpha: 1).cgColor,  // muted dark gray-blue
+            UIColor(red: 0.05, green: 0.05, blue: 0.1, alpha: 1).cgColor // almost black
+        ]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint(x: 1, y: 1)
         gradientLayer.frame = bounds

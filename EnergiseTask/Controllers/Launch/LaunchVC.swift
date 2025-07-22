@@ -9,6 +9,8 @@ final class LaunchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        launchView.animateLaunch()
+        handleAnimationComletion()
     }
     
     override func loadView() {
@@ -17,5 +19,9 @@ final class LaunchViewController: UIViewController {
 }
 
 private extension LaunchViewController {
-    
+    func handleAnimationComletion() {
+        launchView.onAnimationCompleted = {
+            print("hello")
+        }
+    }
 }
