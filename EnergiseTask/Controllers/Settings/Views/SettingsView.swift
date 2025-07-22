@@ -1,12 +1,13 @@
 import UIKit
 import SnapKit
 
-final class SettingsView: UIView {
+final class SettingsView: MainView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-        setupConstraints()
+   override init(titleName: String) {
+       super.init(titleName: titleName)
+       
+       setupUI()
+       setupConstraints()
     }
     
     required init?(coder: NSCoder) {

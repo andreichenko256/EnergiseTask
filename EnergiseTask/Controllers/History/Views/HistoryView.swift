@@ -1,10 +1,11 @@
 import UIKit
 import SnapKit
 
-final class HistoryView: UIView {
+final class HistoryView: MainView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(titleName: String) {
+        super.init(titleName: titleName)
+        
         setupUI()
         setupConstraints()
     }
@@ -16,7 +17,7 @@ final class HistoryView: UIView {
 
 private extension HistoryView {
     func setupUI() {
-        backgroundColor = .red
+        
     }
     
     func setupConstraints() {

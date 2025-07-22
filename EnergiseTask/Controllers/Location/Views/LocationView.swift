@@ -1,10 +1,12 @@
 import UIKit
 import SnapKit
 
-final class LocationView: UIView {
+final class LocationView: MainView {
+
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(titleName: String) {
+        super.init(titleName: titleName)
+        
         setupUI()
         setupConstraints()
     }

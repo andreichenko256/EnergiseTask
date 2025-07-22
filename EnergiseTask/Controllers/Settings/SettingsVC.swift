@@ -12,7 +12,7 @@ final class SettingsViewController: UIViewController {
     }
     
     override func loadView() {
-        view = SettingsView()
+        view = SettingsView(titleName: "Settings")
     }
 }
 

@@ -12,7 +12,7 @@ final class LocationViewController: UIViewController {
     }
     
     override func loadView() {
-        view = LocationView()
+        view = LocationView(titleName: "Location")
     }
 }
 

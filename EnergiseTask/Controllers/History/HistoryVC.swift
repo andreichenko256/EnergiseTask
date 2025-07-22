@@ -12,7 +12,7 @@ final class HistoryViewController: UIViewController {
     }
     
     override func loadView() {
-        view = HistoryView()
+        view = HistoryView(titleName: "History")
     }
 }
 

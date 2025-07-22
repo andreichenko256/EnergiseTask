@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class CustomTabBarView: MainView {
+final class CustomTabBarView: UIView {
     var onTabSelected: ((TabView) -> Void)?
     
     let chatTab: TabView = .init(title: "Home", imageName: "house.fill")
@@ -15,7 +15,6 @@ final class CustomTabBarView: MainView {
      }(UIView())
     
     lazy var containerView: UIView = {
-//        $0.backgroundColor = UIColor(white: 0.1, alpha: 0.9)
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.darkGray.cgColor
         $0.layer.cornerRadius = 10
@@ -38,11 +37,17 @@ final class CustomTabBarView: MainView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.sublayers?.first?.frame = bounds
+    }
 }
 
 private extension CustomTabBarView {
     func setupUI() {
         setupTabsHStackView()
+        setupMainGradient()
     }
     
     func setupConstraints() {
@@ -58,7 +63,7 @@ private extension CustomTabBarView {
         
         tabsHStackView.snp.makeConstraints {
             $0.centerY.equalTo(containerView)
-            $0.horizontalEdges.equalTo(containerView).inset(8)
+            $0.horizontalEdges.equalTo(containerView).inset(16)
         }
         
         contentView.snp.makeConstraints {

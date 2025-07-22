@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-final class LaunchView: MainView {
+final class LaunchView: UIView {
     
     var onAnimationCompleted: (() -> Void)?
     
@@ -16,6 +16,7 @@ final class LaunchView: MainView {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
+    
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +27,7 @@ final class LaunchView: MainView {
 
 private extension LaunchView {
     func setupUI() {
-        
+        setupMainGradient()
     }
     
     func setupConstraints() {

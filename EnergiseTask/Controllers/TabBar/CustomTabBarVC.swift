@@ -22,6 +22,15 @@ final class CustomTabBarViewController: UIViewController {
     override func loadView() {
         view = CustomTabBarView()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let tabBarHeight = customTabBarView.containerView.frame.height + 16
+        
+        NotificationCenter.default.post(name: .tabBarHeight,
+                                        object: nil,
+                                        userInfo: ["height": tabBarHeight])
+    }
 }
 
 private extension CustomTabBarViewController {
@@ -86,4 +95,8 @@ extension CustomTabBarViewController: UINavigationControllerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+}
+
+extension Notification.Name {
+    static let tabBarHeight = Notification.Name("tabBarHeight")
 }
