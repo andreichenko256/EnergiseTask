@@ -4,7 +4,7 @@ import SnapKit
 final class CustomTabBarView: UIView {
     var onTabSelected: ((TabView) -> Void)?
     
-    let chatTab: TabView = .init(title: "Home", imageName: "house.fill")
+    let chatTab: TabView = .init(title: "Chat", imageName: "bubble.left.and.bubble.right.fill")
     let locationTab: TabView = .init(title: "Location", imageName: "location.fill")
     let historyTab: TabView = .init(title: "History", imageName: "clock.fill")
     let settingsTab: TabView = .init(title: "Settings", imageName: "gearshape.fill")

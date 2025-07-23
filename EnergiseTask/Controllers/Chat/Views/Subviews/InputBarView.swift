@@ -3,7 +3,6 @@ import SnapKit
 
 final class InputBarView: UIView {
 
-    
     var currentText: String {
         inputTextField.text ?? ""
     }

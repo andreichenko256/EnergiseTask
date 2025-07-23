@@ -1,4 +1,5 @@
 import Foundation
+
 final class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     private init() {}

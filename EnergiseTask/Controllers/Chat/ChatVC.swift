@@ -5,6 +5,9 @@ final class ChatViewController: UIViewController {
     
     let answers = UserDefaultsManager.shared.getAnswers()
     var tabBarHeight = 0.0
+    
+    private var messages: [Message] = []
+    
     var chatView: ChatView {
         return view as! ChatView
     }
@@ -16,6 +19,14 @@ final class ChatViewController: UIViewController {
         handleSendButtonTapped()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTabBarHeight), name: .tabBarHeight, object: nil)
+        chatView.chatTableView.dataSource = self
+        DispatchQueue.main.async {
+            self.scrollToBottom()
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     deinit {
@@ -24,11 +35,9 @@ final class ChatViewController: UIViewController {
     
     @objc func handleTabBarHeight(_ notification: Notification) {
         if let height = notification.userInfo?["height"] as? CGFloat {
-            print("Received tab bar height: \(height)")
             tabBarHeight = height
         }
     }
-
     
     override func loadView() {
         view = ChatView(titleName: "Chat")
@@ -38,8 +47,21 @@ final class ChatViewController: UIViewController {
 private extension ChatViewController {
     func handleSendButtonTapped() {
         chatView.inputBarView.sendTextButton.onButtonTapped = { [self] in
+            HapticsManager.shared.vibrateForSendMessage()
+            
             let messageText = chatView.inputBarView.currentText
-            print(messageText)
+            messages.append(Message(text: messageText, sender: .user))
+
+            DispatchQueue.main.async { [self] in
+                chatView.chatTableView.reloadData()
+                scrollToBottom()
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [self] in
+                messages.append(Message(text: getRandomIncomingMessage(), sender: .other))
+                chatView.chatTableView.reloadData()
+                scrollToBottom()
+            })
             updateSendTextButtonStateUI()
         }
     }
@@ -49,12 +71,16 @@ private extension ChatViewController {
         chatView.inputBarView.sendTextButton.isDisabled = true
     }
     
+    func getRandomIncomingMessage() -> String {
+        let randomIndex = Int.random(in: 0..<answers!.count)
+        return answers![randomIndex]
+    }
+
     func addKeyboardsObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
     
     @objc func keyboardWillShow(_ notification: Notification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
@@ -70,6 +96,37 @@ private extension ChatViewController {
             self?.chatView.inputBarConstraint?.update(inset: 32)
             self?.view.layoutIfNeeded()
         }
-       
+    }
+}
+
+extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        messages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messages[indexPath.row]
+        
+        switch message.sender {
+        case .user:
+            let cell = tableView.dequeueReusableCell(withIdentifier: OutgoingMessageCell.reuseIdentifier, for: indexPath) as! OutgoingMessageCell
+            cell.configure(with: message.text)
+            return cell
+        case .other:
+            let cell = tableView.dequeueReusableCell(withIdentifier: IncomingMessageCell.reuseIdentifier, for: indexPath) as! IncomingMessageCell
+            cell.configure(with: message.text)
+            return cell
+        }
+    }
+    
+    func scrollToBottom(animated: Bool = true) {
+        let numberOfSections = chatView.chatTableView.numberOfSections
+        guard numberOfSections > 0 else { return }
+        
+        let numberOfRows = chatView.chatTableView.numberOfRows(inSection: numberOfSections - 1)
+        guard numberOfRows > 0 else { return }
+
+        let indexPath = IndexPath(row: numberOfRows - 1, section: numberOfSections - 1)
+        chatView.chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
     }
 }
