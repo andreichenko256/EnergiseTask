@@ -10,7 +10,6 @@ final class ChatView: MainView {
     lazy var chatTableView: UITableView = {
         $0.separatorStyle = .none
         $0.backgroundColor = .clear
-        
         $0.register(OutgoingMessageCell.self, forCellReuseIdentifier: OutgoingMessageCell.reuseIdentifier)
         $0.register(IncomingMessageCell.self, forCellReuseIdentifier: IncomingMessageCell.reuseIdentifier)
         return $0
