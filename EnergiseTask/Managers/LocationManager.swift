@@ -20,7 +20,7 @@ final class LocationManager: NSObject {
             if let vc = viewController {
                 PermisionManager.shared.showDeniedLocationAlert(for: vc)
             }
-            print("❌ Location permission denied")
+            print("Location permission denied")
         case .authorizedWhenInUse, .authorizedAlways:
             break
         @unknown default:

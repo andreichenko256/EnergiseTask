@@ -20,8 +20,6 @@ final class CoreDataManager {
         persistentContainer.viewContext
     }
 
-    // MARK: - Chat Methods
-
     func createChat(firstMessage: String) -> Chat {
         let chat = Chat(context: context)
         chat.id = UUID()

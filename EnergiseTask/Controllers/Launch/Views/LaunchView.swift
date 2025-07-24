@@ -16,13 +16,12 @@ final class LaunchView: UIView {
         super.init(frame: frame)
         setupUI()
         setupConstraints()
-    
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 private extension LaunchView {
@@ -43,8 +42,29 @@ private extension LaunchView {
 
 extension LaunchView {
     func animateLaunch() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + K.launchTime) {
+        self.pulseLogo(repeatCount: 3) {
             self.onAnimationCompleted?()
+        }
+    }
+    
+    private func pulseLogo(repeatCount: Int, completion: @escaping () -> Void) {
+        guard repeatCount > 0 else {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.logoImageView.transform = .identity
+            }, completion: { _ in
+                completion()
+            })
+            return
+        }
+        
+        UIView.animate(withDuration: 0.6, animations: {
+            self.logoImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }) { _ in
+            UIView.animate(withDuration: 0.6, animations: {
+                self.logoImageView.transform = .identity
+            }) { _ in
+                self.pulseLogo(repeatCount: repeatCount - 1, completion: completion)
+            }
         }
     }
 }

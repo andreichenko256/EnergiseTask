@@ -21,7 +21,8 @@ final class LaunchViewController: UIViewController {
 private extension LaunchViewController {
     func handleAnimationComletion() {
         launchView.onAnimationCompleted = {
-            print("hello")
+            let tabBarVC = UINavigationController(rootViewController: CustomTabBarViewController())
+            self.setRootController(tabBarVC)
         }
     }
 }
