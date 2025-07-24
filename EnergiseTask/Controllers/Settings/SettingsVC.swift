@@ -45,11 +45,11 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }, completion: { _ in
                 switch setting.type {
                 case .rateUs:
-                    print("rate uss")
+                    self.requestReview()
                 case .shareApp:
-                    print("share app")
+                    self.shareAction(K.URLs.appStore)
                 case .contactUs:
-                    print("contact us")
+                    self.openUrl(K.URLs.contactUs)
                 }
             })
         })

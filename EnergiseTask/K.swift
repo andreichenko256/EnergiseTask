@@ -7,6 +7,7 @@ struct K {
         static let primaryColor = UIColor.lightGray
         static let secondaryColor = UIColor.yellow
     }
+    
     struct Fonts {
         static let alexandriaH1: UIFont = UIFont(name: "Alexandria-Regular", size: 32)!
         static let alexandriaH2: UIFont = UIFont(name: "Alexandria-Regular", size: 24)!
@@ -21,6 +22,11 @@ struct K {
         static let redHatP4: UIFont = UIFont(name: "RedHatDisplay-Regular_SemiBold", size: 14)!
         static let redHatP5: UIFont = UIFont(name: "RedHatDisplay-Regular", size: 14)!
         static let redHatP6: UIFont = UIFont(name: "RedHatDisplay-Regular", size: 12)!
+    }
+    
+    struct URLs {
+        static let appStore = "https://google.com/"
+        static let contactUs = "https://google.com/"
     }
     
     struct API {

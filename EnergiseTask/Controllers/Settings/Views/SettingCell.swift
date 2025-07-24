@@ -13,13 +13,14 @@ final class SettingCell: UITableViewCell {
     }(UIView())
     
     lazy var titleLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 17, weight: .medium)
+        $0.font = K.Fonts.redHatP1
         $0.textColor = .white
         return $0
     }(UILabel())
     
     lazy var iconImageView: UIImageView = {
         $0.contentMode = .scaleAspectFit
+        $0.tintColor = K.Colors.secondaryColor
         return $0
     }(UIImageView())
     
@@ -55,11 +56,13 @@ private extension SettingCell {
         
         iconImageView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
-            $0.verticalEdges.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(24)
         }
         
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(iconImageView.snp.trailing).offset(12)
+            $0.verticalEdges.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
         }
     }
