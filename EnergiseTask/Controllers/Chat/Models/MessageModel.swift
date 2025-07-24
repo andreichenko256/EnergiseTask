@@ -3,7 +3,7 @@ enum MessageSender {
     case other
 }
 
-struct Message {
+struct MessageModel {
     let text: String
     let sender: MessageSender
 }

@@ -3,10 +3,16 @@ import SnapKit
 
 final class HistoryView: MainView {
     
+    lazy var tableView: UITableView = {
+        $0.showsVerticalScrollIndicator = false
+        $0.separatorStyle = .none
+        $0.backgroundColor = .clear
+        $0.register(ChatHistoryCell.self, forCellReuseIdentifier: ChatHistoryCell.reuseIdentifier)
+        return $0
+    }(UITableView())
+    
     override init(titleName: String) {
         super.init(titleName: titleName)
-        
-        setupUI()
         setupConstraints()
     }
     
@@ -16,13 +22,15 @@ final class HistoryView: MainView {
 }
 
 private extension HistoryView {
-    func setupUI() {
-        
-    }
-    
     func setupConstraints() {
-        [].forEach {
+        [tableView].forEach {
             addSubview($0)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(16)
         }
     }
 }

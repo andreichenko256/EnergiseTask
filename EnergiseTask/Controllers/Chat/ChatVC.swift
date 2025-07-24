@@ -6,7 +6,8 @@ final class ChatViewController: UIViewController {
     let answers = UserDefaultsManager.shared.getAnswers()
     var tabBarHeight = 0.0
     
-    private var messages: [Message] = []
+    private var messages: [MessageModel] = []
+    private var currentChat: Chat?
     
     var chatView: ChatView {
         return view as! ChatView
@@ -50,7 +51,14 @@ private extension ChatViewController {
             HapticsManager.shared.vibrateForSendMessage()
             
             let messageText = chatView.inputBarView.currentText
-            messages.append(Message(text: messageText, sender: .user))
+            messages.append(MessageModel(text: messageText, sender: .user))
+            
+            if currentChat == nil {
+                currentChat = CoreDataManager.shared.createChat(firstMessage: messageText)
+            }
+            if let chat = currentChat {
+                CoreDataManager.shared.addMessage(to: chat, text: messageText, sender: "user")
+            }
 
             DispatchQueue.main.async { [self] in
                 chatView.chatTableView.reloadData()
@@ -58,7 +66,11 @@ private extension ChatViewController {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: { [self] in
-                messages.append(Message(text: getRandomIncomingMessage(), sender: .other))
+                let reply = getRandomIncomingMessage()
+                messages.append(MessageModel(text: reply, sender: .other))
+                if let chat = currentChat {
+                    CoreDataManager.shared.addMessage(to: chat, text: reply, sender: "other")
+                }
                 chatView.chatTableView.reloadData()
                 scrollToBottom()
             })
@@ -106,7 +118,7 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
-        
+    
         switch message.sender {
         case .user:
             let cell = tableView.dequeueReusableCell(withIdentifier: OutgoingMessageCell.reuseIdentifier, for: indexPath) as! OutgoingMessageCell
