@@ -5,7 +5,6 @@ final class PrimaryButton: UIButton {
     
     var onButtonTapped: VoidBlock?
     
-    
     var isDisabled: Bool = false {
         didSet {
             isEnabled = !isDisabled
@@ -45,7 +44,7 @@ private extension PrimaryButton {
         onButtonTapped?()
     }
     
-    func updateDisabledStateButtonUI () {
+    func updateDisabledStateButtonUI() {
         alpha = isDisabled ? 0.5 : 1
     }
 }

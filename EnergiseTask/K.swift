@@ -30,7 +30,7 @@ struct K {
     }
     
     struct API {
-        
+        static let ipApiUrl = "http://ip-api.com/json"
     }
     
     static let answers = [

@@ -48,7 +48,6 @@ final class SettingsView: MainView {
 }
 
 private extension SettingsView {
-    
     func setupConstraints() {
         addSubview(containerView)
         containerView.snp.makeConstraints {
