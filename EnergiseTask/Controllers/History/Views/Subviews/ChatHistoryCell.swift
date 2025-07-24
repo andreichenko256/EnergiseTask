@@ -87,7 +87,6 @@ private extension ChatHistoryCell {
         deleteButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(12)
-            $0.leading.lessThanOrEqualTo(timestampLabel.snp.trailing)
         }
         
         openChatButton.snp.makeConstraints {
