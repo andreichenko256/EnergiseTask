@@ -10,7 +10,6 @@ final class LocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         handleGetDataButtonTapped()
     }
     
@@ -44,9 +43,10 @@ private extension LocationViewController {
                     Organization: \(data.org)
                     AS: \(data.asDescription)
                     """
+                    self.locationView.errorFetchingDataLabel.isHidden = true
                     self.locationView.geoDataTextView.text = geoInfo
                 case .failure(_):
-                    break
+                    self.locationView.errorFetchingDataLabel.isHidden = false
                 }
             }
         }

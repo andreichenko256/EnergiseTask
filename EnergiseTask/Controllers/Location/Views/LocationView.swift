@@ -3,7 +3,7 @@ import SnapKit
 import MapKit
 
 final class LocationView: MainView {
-
+    
     lazy var mapView: MKMapView = {
         $0.layer.cornerRadius = 16
         $0.layer.borderWidth = 1
@@ -24,6 +24,15 @@ final class LocationView: MainView {
         $0.layer.cornerRadius = 16
         return $0
     }(UIScrollView())
+    
+    lazy var errorFetchingDataLabel: UILabel = {
+        $0.text = "Error fetching data"
+        $0.font = UIFont.systemFont(ofSize: 27)
+        $0.textColor = .red
+        $0.textAlignment = .center
+        $0.isHidden = true
+        return $0
+    }(UILabel())
     
     lazy var geoDataTextView: UITextView = {
         $0.font = UIFont.systemFont(ofSize: 14)
@@ -52,19 +61,21 @@ private extension LocationView {
             addSubview($0)
         }
         
-        geoScrollView.addSubview(geoDataTextView)
+        [geoDataTextView, errorFetchingDataLabel].forEach {
+            geoScrollView.addSubview($0)
+        }
         
         mapView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.height.equalToSuperview().multipliedBy(0.5)
         }
-
+        
         geoScrollView.snp.makeConstraints {
             $0.top.equalTo(mapView.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(16)
         }
-
+        
         getDataButton.snp.makeConstraints {
             $0.top.equalTo(geoScrollView.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(16)
@@ -73,6 +84,10 @@ private extension LocationView {
         
         geoDataTextView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        }
+        
+        errorFetchingDataLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 }
