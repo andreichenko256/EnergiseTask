@@ -96,7 +96,7 @@ private extension ChatHistoryCell {
         
         timestampLabel.snp.makeConstraints {
             $0.top.equalTo(chatTitleLabel.snp.bottom).offset(4)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().inset(16)
         }
         
         firstMessageLabel.snp.makeConstraints {

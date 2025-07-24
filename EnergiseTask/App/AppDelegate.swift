@@ -1,9 +1,4 @@
-//
-//  AppDelegate.swift
-//  EnergiseTask
-//
-//  Created by Kyrylo Andreichenko on 21.07.2025.
-//
+
 
 import UIKit
 import CoreData
