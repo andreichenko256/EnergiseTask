@@ -44,7 +44,9 @@ A mini iOS application prototype featuring a chatbot, IP-based API content, chat
 ---
 
 ## 📱 Video
+[English](https://drive.google.com/file/d/1jJVgNLAfRHCLHI81sPo5oZSvmgPJdBMf/view?usp=sharing)
 
+[German](https://drive.google.com/file/d/1Bik6eqVaVwiZkdFNSaaDJWbt9QOhAepp/view?usp=sharing)
 
 ---
 
