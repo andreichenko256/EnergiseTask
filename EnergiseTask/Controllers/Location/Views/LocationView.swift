@@ -15,7 +15,7 @@ final class LocationView: MainView {
     lazy var getDataButton: PrimaryButton = {
         $0.isDisabled = false
         return $0
-    }(PrimaryButton(buttonTitleText: "Get data from API"))
+    }(PrimaryButton(buttonTitleText: NSLocalizedString("get data from api", comment: "")))
     
     lazy var geoScrollView: UIScrollView = {
         $0.showsVerticalScrollIndicator = true

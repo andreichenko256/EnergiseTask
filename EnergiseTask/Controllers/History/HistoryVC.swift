@@ -20,7 +20,7 @@ final class HistoryViewController: UIViewController {
     }
     
     override func loadView() {
-        view = HistoryView(titleName: "History")
+        view = HistoryView(titleName: NSLocalizedString("history", comment: ""))
     }
 }
 
@@ -32,7 +32,7 @@ extension HistoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatHistoryCell") as! ChatHistoryCell
         let chat = chats[indexPath.row]
-        let title = "Chat #\(indexPath.row + 1)"
+        let title = "\(NSLocalizedString("chat", comment: "")) #\(indexPath.row + 1)"
         let date = chat.createdAt ?? Date()
         let message = chat.firstMessage ?? "No message"
         cell.configure(title: title, timestamp: date, message: message)
@@ -55,7 +55,8 @@ extension HistoryViewController: UITableViewDataSource {
 
             let chat = self.chats[currentIndexPath.row]
             if let messages = chat.messages?.allObjects as? [Message] {
-                let messageModels: [MessageModel] = messages.map {
+                let sortedMessages = messages.sorted(by: { ($0.timestamp ?? Date()) < ($1.timestamp ?? Date()) })
+                let messageModels: [MessageModel] = sortedMessages.map {
                     MessageModel(text: $0.text ?? "", sender: $0.sender == "user" ? .user : .other)
                 }
                 let vc = FullChatViewController(messages: messageModels, chatName: title)

@@ -14,7 +14,7 @@ final class LocationViewController: UIViewController {
     }
     
     override func loadView() {
-        view = LocationView(titleName: "Location")
+        view = LocationView(titleName: NSLocalizedString("location", comment: ""))
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -15,7 +15,7 @@ final class ChatHistoryCell: UITableViewCell {
     }(UIView())
     
     lazy var deleteButton: UIButton = {
-        $0.setTitle("Delete", for: .normal)
+        $0.setTitle(NSLocalizedString("delete", comment: ""), for: .normal)
         $0.setTitleColor(.systemRed, for: .normal)
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         $0.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
@@ -24,7 +24,7 @@ final class ChatHistoryCell: UITableViewCell {
     
     lazy var openChatButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Open", for: .normal)
+        button.setTitle(NSLocalizedString("open", comment: ""), for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         button.addTarget(self, action: #selector(openChatButtonTapped), for: .touchUpInside)

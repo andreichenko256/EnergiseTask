@@ -17,7 +17,7 @@ final class SettingsViewController: UIViewController {
     }
     
     override func loadView() {
-        view = SettingsView(titleName: "Settings")
+        view = SettingsView(titleName: NSLocalizedString("settings", comment: ""))
     }
 }
 

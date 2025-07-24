@@ -7,10 +7,11 @@ final class InputBarView: UIView {
         inputTextField.text ?? ""
     }
     
-    let sendTextButton = PrimaryButton.init(buttonTitleText: "Send")
+    let sendTextButton = PrimaryButton.init(buttonTitleText: NSLocalizedString("send", comment: ""))
     
     lazy var inputTextField: UITextField = {
-        $0.placeholder = "Type message here..."
+
+        $0.placeholder = NSLocalizedString("type message here", comment: "")
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         $0.backgroundColor = .lightGray
         return $0

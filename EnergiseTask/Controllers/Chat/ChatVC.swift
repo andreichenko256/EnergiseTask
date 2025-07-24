@@ -41,7 +41,7 @@ final class ChatViewController: UIViewController {
     }
     
     override func loadView() {
-        view = ChatView(titleName: "Chat")
+        view = ChatView(titleName: NSLocalizedString("chat", comment: ""))
     }
 }
 
